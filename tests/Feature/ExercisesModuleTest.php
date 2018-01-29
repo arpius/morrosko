@@ -10,29 +10,21 @@ use Tests\TestCase;
 class ExercisesModuleTest extends TestCase
 {
     use RefreshDatabase;
-
-    /**
-     * @test
-     */
-    public function it_loads_the_index()
-    {
-        $this->get('/')->assertStatus(200);
-    }
-
+    
     /**
      * @test
      */
     public function it_loads_the_exercises_page()
     {
-        $this->get('/exercises')->assertStatus(200);
+        $this->get(route('exercises.index'))->assertStatus(200);
     }
 
     /**
      * @test
      */
-    public function it_shows_the_exercises_page_without_exercises()
+    public function it_shows_the_exercises_page_empty()
     {
-        $this->get('/exercises')
+        $this->get(route('exercises.index'))
             ->assertStatus(200)
             ->assertDontSee('Description');
     }
@@ -42,13 +34,13 @@ class ExercisesModuleTest extends TestCase
      */
     public function it_shows_the_exercises_page_with_some_exercises()
     {
-        MuscleGroup::create(['name' => 'Core']);
-        MuscleGroup::create(['name' => 'Lower extremity']);
-        MuscleGroup::create(['name' => 'Upper extremity']);
+        $muscleGroup = MuscleGroup::create(['name' => 'Core']);
 
-        factory(Exercise::class)->create();
+        factory(Exercise::class)->create([
+            'muscle_group_id' => $muscleGroup->id
+        ]);
 
-        $this->get('/exercises')
+        $this->get(route('exercises.index'))
             ->assertStatus(200)
             ->assertSee('Description');
     }
@@ -58,11 +50,11 @@ class ExercisesModuleTest extends TestCase
      */
     public function it_displays_an_exercise_details()
     {
-        MuscleGroup::create(['name' => 'Core']);
-        MuscleGroup::create(['name' => 'Lower extremity']);
-        MuscleGroup::create(['name' => 'Upper extremity']);
+        $muscleGroup = MuscleGroup::create(['name' => 'Upper extremity']);
 
-        $exercise = factory(Exercise::class)->create();
+        $exercise = factory(Exercise::class)->create([
+            'muscle_group_id' => $muscleGroup->id
+        ]);
 
         $this->get('/exercises/' . $exercise->id)
             ->assertStatus(200)
@@ -74,14 +66,14 @@ class ExercisesModuleTest extends TestCase
      */
     public function it_deletes_an_exercise()
     {
-        MuscleGroup::create(['name' => 'Core']);
-        MuscleGroup::create(['name' => 'Lower extremity']);
-        MuscleGroup::create(['name' => 'Upper extremity']);
+        $muscleGroup = MuscleGroup::create(['name' => 'Lower extremity']);
 
-        $exercise = factory(Exercise::class)->create();
+        $exercise = factory(Exercise::class)->create([
+            'muscle_group_id' => $muscleGroup->id
+        ]);
 
         $this->delete('/exercises/' . $exercise->id)
-            ->assertRedirect('/exercises');
+            ->assertRedirect('exercises');
 
         $this->assertDatabaseMissing('exercises', [
             'id' => $exercise->id
@@ -93,8 +85,7 @@ class ExercisesModuleTest extends TestCase
      */
     public function it_loads_the_new_exercises_page()
     {
-        $this->get('/exercises/new')
-            ->assertStatus(200)
-            ->assertSee('Create new exercise');
+        $this->get(route('exercises.create'))
+            ->assertSee('Creating exercise');
     }
 }
