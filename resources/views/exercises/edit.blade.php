@@ -1,11 +1,11 @@
 @extends('layout')
 
-@section('title', "Editing exercise [{$exercise->id}]")
+@section('title', trans('views.editing_exercise') . " [{$exercise->id}]")
 
 @section('content')
     <div class="card">
         <header class="card-header">
-            <p class="card-header-title">Editing exercise ({{ $exercise->name }})</p>
+            <p class="card-header-title">@lang('views.editing_exercise') ({{ $exercise->name }})</p>
         </header>
 
         <div class="card-content">
@@ -27,14 +27,14 @@
                     {{ csrf_field() }}
 
                     <div class="field">
-                        <label for="name" class="label">Name</label>
+                        <label for="name" class="label">@lang('views.name')</label>
                         <div class="control">
                             <input type="text" class="input" name="name" value="{{ old('name', $exercise->name) }}">
                         </div>
                     </div>
 
                     <div class="field">
-                        <label for="description" class="label">Description</label>
+                        <label for="description" class="label">@lang('views.description')</label>
                         <div class="control">
                             <input type="text" class="input" name="description"
                                    value="{{ old('description', $exercise->description) }}">
@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="field">
-                        <label for="muscle-group" class="label">Muscle group</label>
+                        <label for="muscle-group" class="label">@lang('views.muscle_group')</label>
                         <div class="control">
                             <div class="select">
                                 <select name="muscle-group" id="muscle-group">
@@ -60,7 +60,7 @@
                     </div>
 
                     <div class="field">
-                        <label for="series" class="label">Series</label>
+                        <label for="series" class="label">@lang('views.series')</label>
                         <div class="control">
                             <div class="select">
                                 <select name="series" id="series">
@@ -76,7 +76,7 @@
                     </div>
 
                     <div class="field">
-                        <label for="replays" class="label">Replays</label>
+                        <label for="replays" class="label">@lang('views.replays')</label>
                         <div class="control">
                             <div class="select">
                                 <select name="replays" id="replays">
@@ -97,8 +97,12 @@
                             <div class="level-item">
                                 <div class="field is-grouped">
                                     <p class="control">
-                                        <button type="submit" class="button is-success">Save</button>
-                                        <a href="{{ route('exercises.index') }}" class="button is-light">Cancel</a>
+                                        <button type="submit" class="button is-success">
+                                            @lang('views.save')
+                                        </button>
+                                        <a href="{{ route('exercises.index') }}" class="button is-light">
+                                            @lang('views.cancel')
+                                        </a>
                                     </p>
                                 </div>
                             </div>

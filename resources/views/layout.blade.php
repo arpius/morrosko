@@ -19,7 +19,7 @@
                             Morrosko!
                         </h1>
                         <h2 class="subtitle">
-                            stay fit
+                            @lang('views.stay_fit')
                         </h2>
                     </div>
                 </div>

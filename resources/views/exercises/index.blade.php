@@ -7,7 +7,9 @@
         <div class="level-left"></div>
         <div class="level-right">
             <div class="level-item">
-                <a href="{{ route('exercises.create') }}" class="button is-link">New exercise</a>
+                <a href="{{ route('exercises.create') }}" class="button is-info">
+                    <span class="oi" data-glyph="plus"></span>
+                </a>
             </div>
         </div>
     </nav>
@@ -16,11 +18,11 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Muscle group</th>
-                    <th>Series</th>
-                    <th>Replays</th>
+                    <th>@lang('views.name')</th>
+                    <th>@lang('views.description')</th>
+                    <th>@lang('views.muscle_group')</th>
+                    <th>@lang('views.series')</th>
+                    <th>@lang('views.replays')</th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -67,6 +69,6 @@
 
         {{ $exercises->links() }}
     @else
-        <p>¡Circulen! aquí no hay nada que ver</p>
+        <h2 class="title is-2">@lang('views.no_exercise')</h2>
     @endif
 @endsection

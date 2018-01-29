@@ -13,9 +13,9 @@
         </div>
 
         <footer class="card-footer">
-            <p class="card-footer-item">Series: {{ $exercise->series }}</p>
-            <p class="card-footer-item">Replays: {{ $exercise->replays }}</p>
-            <p class="card-footer-item">Muscle group:
+            <p class="card-footer-item">@lang('views.series'): {{ $exercise->series }}</p>
+            <p class="card-footer-item">@lang('views.replays'): {{ $exercise->replays }}</p>
+            <p class="card-footer-item">@lang('views.muscle_group'):
                 @if($exercise->muscleGroup)
                     {{ $exercise->muscleGroup->name }}
                 @endif
@@ -27,7 +27,9 @@
         <div class="level-left"></div>
         <div class="level-right">
             <div class="level-item">
-                <a href="{{ route('exercises.index') }}" class="button is-link">Come back</a>
+                <a href="{{ route('exercises.index') }}" class="button is-link">
+                    @lang('views.come_back')
+                </a>
             </div>
         </div>
     </nav>

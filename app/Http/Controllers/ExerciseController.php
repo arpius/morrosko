@@ -8,7 +8,7 @@ class ExerciseController extends Controller
 {
     public function index()
     {
-        $title = 'Exercises';
+        $title = trans('views.exercise_list');
         $exercises = Exercise::simplePaginate(6);
 
         return view('exercises.index', compact('title', 'exercises'));
